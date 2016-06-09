@@ -4,11 +4,10 @@ FROM node:argon
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
-#install botkit
-RUN npm install botkit --save
 COPY slack_bot.js /usr/src/app/
 COPY package.json /usr/src/app/
 COPY lib /usr/src/app/lib
+RUN cd /usr/src/app/ && npm install
 
 #set startup commands
 CMD ["node", "slack_bot"]
