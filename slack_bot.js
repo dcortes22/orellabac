@@ -1,73 +1,18 @@
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-           ______     ______     ______   __  __     __     ______
-          /\  == \   /\  __ \   /\__  _\ /\ \/ /    /\ \   /\__  _\
-          \ \  __<   \ \ \/\ \  \/_/\ \/ \ \  _"-.  \ \ \  \/_/\ \/
-           \ \_____\  \ \_____\    \ \_\  \ \_\ \_\  \ \_\    \ \_\
-            \/_____/   \/_____/     \/_/   \/_/\/_/   \/_/     \/_/
-
-
-This is a sample Slack bot built with Botkit.
-
-This bot demonstrates many of the core features of Botkit:
-
-* Connect to Slack using the real time API
-* Receive messages based on "spoken" patterns
-* Reply to messages
-* Use the conversation system to ask questions
-* Use the built in storage system to store and retrieve information
-  for a user.
-
-# RUN THE BOT:
-
-  Get a Bot token from Slack:
-
-    -> http://my.slack.com/services/new/bot
-
-  Run your bot from the command line:
-
-    token=<MY TOKEN> node slack_bot.js
-
-# USE THE BOT:
-
-  Find your bot inside Slack to send it a direct message.
-
-  Say: "Hello"
-
-  The bot will reply "Hello!"
-
-  Say: "who are you?"
-
-  The bot will tell you its name, where it running, and for how long.
-
-  Say: "Call me <nickname>"
-
-  Tell the bot your nickname. Now you are friends.
-
-  Say: "who am I?"
-
-  The bot will tell you your nickname, if it knows one for you.
-
-  Say: "shutdown"
-
-  The bot will ask if you are sure, and then shut itself down.
-
-  Make sure to invite your bot into other channels using /invite @<my bot>!
-
-# EXTEND THE BOT:
-
-  Botkit has many features for building cool and useful bots!
-
-  Read all about it here:
-
-    -> http://howdy.ai/botkit
-
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
-
 if (!process.env.SLACK_TOKEN) {
     console.log('Error: Specify token in environment');
     process.exit(1);
 }
+
+var cleverbot = require("cleverbot.io"),
+cleverbot = new cleverbot('i8TjAndLnTqKNxFv', 'nfwwaciaKYccoLj5KLuOGhLoddV8O6zo');
+cleverbot.setNick("Bob");
+cleverbot.create(function (err, session) {
+    if (err) {
+        console.log('cleverbot create fail.');
+    } else {
+        console.log('cleverbot create success.');
+    }
+});
 
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
@@ -79,29 +24,6 @@ var controller = Botkit.slackbot({
 var bot = controller.spawn({
     token: process.env.SLACK_TOKEN
 }).startRTM();
-
-
-controller.hears(['hola'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-    bot.api.reactions.add({
-        timestamp: message.ts,
-        channel: message.channel,
-        name: 'robot_face',
-    }, function(err, res) {
-        if (err) {
-            bot.botkit.log('Failed to add emoji reaction :(', err);
-        }
-    });
-
-
-    controller.storage.users.get(message.user, function(err, user) {
-        if (user && user.name) {
-            bot.reply(message, 'Hola ' + user.name + '!!');
-        } else {
-            bot.reply(message, 'Hola.');
-        }
-    });
-});
 
 controller.hears(['cuenteme algo', 'cuenteme un chiste', 'cuente un chiste', 'estoy aburrido'], 'direct_message,direct_mention,mention', function(bot, message){
   var stories = ['- Mama que haces en frente de la computadora con los hojos cerrados??? \n- Nada hijo es que Windows me dijo que cierre las pestañas',
@@ -120,9 +42,77 @@ controller.hears(['cuenteme algo', 'cuenteme un chiste', 'cuente un chiste', 'es
                  '—¿Qué tramas?', 'http://img.desmotivaciones.es/201508/sexo-silencio-desmotivaciones.jpg',
                  'http://img.desmotivaciones.es/201112/informatica.jpg', 'https://lh3.googleusercontent.com/-RanqDppqME4/VUOZ06phYnI/AAAAAAAAADQ/q0sTl6Ygrcs/w800-h800/por-esos-chistes-malos-carteles-chistes-tonterias-risa-sonrisa-desmotivaciones.jpg',
                  'http://img.desmotivaciones.es/201101/images_4701.jpg', 'http://img.desmotivaciones.es/201011/bandaancha.jpg'];
-  var story = stories[Math.floor(Math.random() * stories.length)]
+  var story = stories[Math.floor(Math.random() * stories.length)];
   bot.reply(message, 'Que tal un chiste?')
   bot.reply(message, story);
+});
+
+
+controller.hears(['insulte'], 'direct_message,direct_mention,mention', function(bot,message){
+  var insults = ["http://i.imgur.com/9IZACjN.jpg",
+                  "http://i.imgur.com/ftc2h0p.jpg",
+                  "http://i.imgur.com/QEb2GaS.jpg",
+                  "http://i.imgur.com/LHQ5FXf.jpg",
+                  "http://i.imgur.com/rNW9J0D.jpg",
+                  "http://i.imgur.com/slGGjh9.png",
+                  "http://i.imgur.com/ijuqlp7.png",
+                  "http://i.imgur.com/riHJxSx.png",
+                  "http://i.imgur.com/21vNjxl.png",
+                  "http://i.imgur.com/XlMRGDE.png",
+                  "http://i.imgur.com/y9iuoKk.png",
+                  "http://i.imgur.com/zmU7RBF.png",
+                  "http://i.imgur.com/nrLtb7S.png",
+                  "http://i.imgur.com/m0U288v.gif",
+                  "http://i.imgur.com/W5LGPj7.gif",
+                  "http://i.imgur.com/GZfjPDH.gif",
+                  "http://i.imgur.com/TM0qYRi.gif",
+                  "http://i.imgur.com/dUb0C1V.gif",
+                  "http://i.imgur.com/WFdLzo9.gif",
+                  "http://i.imgur.com/doE0ChC.gif",
+                  "http://i.imgur.com/Jal12NU.gif",
+                  "http://i.imgur.com/SOEQQ6m.gif",
+                  "http://i.imgur.com/OJkjPnP.gif",
+                  "http://i.imgur.com/CjTPuvh.gif",
+                  "http://i.imgur.com/5cpGsja.gif",
+                  "http://i.imgur.com/23J4RqC.gif",
+                  "http://i.imgur.com/m7qUTLq.gif",
+                  "http://i.imgur.com/qwk5kKT.gif",
+                  "http://i.imgur.com/6b9OqaI.gif",
+                  "http://i.imgur.com/mcL83zN.gif",
+                  "http://i.imgur.com/bwzg7nr.gif",
+                  "http://i.imgur.com/H92PB5P.gif",
+                  "http://i.imgur.com/8sqhwOg.gif",
+                  "http://i.imgur.com/WPGwXHq.gif",
+                  "http://i.imgur.com/cOVQQq6.gif",
+                  "http://cdn.emgn.com/wp-content/uploads/2015/01/Rude-Animal-Facts-EMGN1.png",
+                  "http://cdn.emgn.com/wp-content/uploads/2015/01/Rude-Animal-Facts-EMGN2.png",
+                  "http://cdn.emgn.com/wp-content/uploads/2015/01/Rude-Animal-Facts-EMGN4.png",
+                  "http://cdn.emgn.com/wp-content/uploads/2015/01/Rude-Animal-Facts-EMGN5.png",
+                  "http://cdn.emgn.com/wp-content/uploads/2015/01/Rude-Animal-Facts-EMGN6.jpg",
+                  "http://i.imgur.com/dMDdQOI.gif",
+                  "http://i.imgur.com/4PhyZKv.gif",
+                  "http://i.imgur.com/6OGiTqc.gif",
+                  "http://i.imgur.com/WtDpHiL.gif",
+                  "http://i.imgur.com/7PIIlI7.gif",
+                  "http://replygif.net/i/186.gif",
+                  "http://i.imgur.com/TLDBTeV.gif",
+                  "http://i.imgur.com/HegZkkc.gif",
+                  "http://i.imgur.com/clcdkfP.gif",
+                  "http://i.imgur.com/c5yeWVx.gif",
+                  "http://i.imgur.com/IG4Evs9.gif",
+                  "http://i.imgur.com/VJCWcnK.gif",
+                  "http://i.imgur.com/QFrk1X5.gif",
+                  "http://i.imgur.com/kXGUKwD.gif",
+                  "http://i.imgur.com/Jnit9mq.gif",
+                  "http://i.imgur.com/iQjNakW.gif",
+                  "http://i.imgur.com/5Zfltup.gif",
+                  "http://i.imgur.com/OdYTqoB.gif",
+                  "http://i.imgur.com/LCy4zVv.gif",
+                  "http://i.imgur.com/DZ64Fu7.gif",
+                  "http://i.imgur.com/DAzfQh6.gif",
+                  "http://i.imgur.com/R8Ou2cj.gif"];
+    var insult = insults[Math.floor(Math.random() * insults.length)];
+    bot.reply(message, insult);
 });
 
 controller.hears(['picnic'], 'ambient', function(bot, message){
@@ -130,6 +120,10 @@ controller.hears(['picnic'], 'ambient', function(bot, message){
   var user = "<@"+userID+">";
   var reply = user + " hagame mention, no hable a mis espaldas :rage:";
   bot.reply(message, reply);
+});
+
+controller.hears(['no entiendo', 'no entendi', 'expliqueme', 'me explica'], 'ambient', function(bot, message){
+  bot.reply(message, "https://s-media-cache-ak0.pinimg.com/736x/2e/29/87/2e298711c7fec1d77637a982235c9910.jpg");
 });
 
 controller.hears(['julio', 'orlando', 'orly'], 'direct_message,direct_mention,mention,ambient', function(bot, message){
@@ -142,21 +136,15 @@ controller.hears(['julio', 'orlando', 'orly'], 'direct_message,direct_mention,me
 
 controller.hears(['me llamo (.*)', 'mi nombre es (.*)', 'soy (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var name = message.match[1];
-    controller.storage.users.get(message.user, function(err, user) {
-        if (!user) {
-            user = {
-                id: message.user,
-            };
-        }
-        user.name = name;
-        controller.storage.users.save(user, function(err, id) {
-            bot.reply(message, 'Ok. Lo voy a llamar ' + user.name + ' desde ahora.');
-        });
-    });
+    bot.reply(message, 'Quiere un trofeo o fiesta en hooters? ' + "<@"+message.user+">");
 });
 
 controller.on("bot_channel_join", function(bot, message){
-  bot.reply(message, "Ahora si empieza lo bueno :smirk:");
+  bot.reply(message,"Ahora si empieza lo bueno :smirk:");
+});
+
+controller.on("bot_group_join", function(bot, message){
+  bot.reply(message,"Ahora si empieza lo bueno :smirk:");
 });
 
 controller.hears(['jale a comer', 'almuerzo', 'comida', 'comen'], 'ambient', function(bot, message){
@@ -167,114 +155,17 @@ controller.hears(['jale a comer', 'almuerzo', 'comida', 'comen'], 'ambient', fun
            channel:"C11429SQ6"});
 });
 
-controller.hears(['como me llamo', 'quien soy', 'cual es mi nombre'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-    controller.storage.users.get(message.user, function(err, user) {
-        if (user && user.name) {
-            bot.reply(message, 'Su nombre es ' + user.name);
+controller.hears('','direct_message,direct_mention,mention',function(bot,message) {
+    var msg = message.text;
+    cleverbot.ask(msg, function (err, response) {
+        if (!err) {
+            bot.reply(message, response);
         } else {
-            bot.startConversation(message, function(err, convo) {
-                if (!err) {
-                    convo.say('Aun no se su nombre');
-                    convo.ask('Como debo llamarlo', function(response, convo) {
-                        convo.ask('Quiere que lo llame `' + response.text + '`?', [
-                            {
-                                pattern: 'si',
-                                callback: function(response, convo) {
-                                    // since no further messages are queued after this,
-                                    // the conversation will end naturally with status == 'completed'
-                                    convo.next();
-                                }
-                            },
-                            {
-                                pattern: 'no',
-                                callback: function(response, convo) {
-                                    // stop the conversation. this will cause it to end with status == 'stopped'
-                                    convo.stop();
-                                }
-                            },
-                            {
-                                default: true,
-                                callback: function(response, convo) {
-                                    convo.repeat();
-                                    convo.next();
-                                }
-                            }
-                        ]);
-
-                        convo.next();
-
-                    }, {'key': 'nickname'}); // store the results in a field called nickname
-
-                    convo.on('end', function(convo) {
-                        if (convo.status == 'completed') {
-                            bot.reply(message, 'Ok, he aprendido algo nuevo hoy...');
-
-                            controller.storage.users.get(message.user, function(err, user) {
-                                if (!user) {
-                                    user = {
-                                        id: message.user,
-                                    };
-                                }
-                                user.name = convo.extractResponse('nickname');
-                                controller.storage.users.save(user, function(err, id) {
-                                    bot.reply(message, 'Ok lo llamare ' + user.name + ' a partir de ahora');
-                                });
-                            });
-
-
-
-                        } else {
-                            // this happens if the conversation ended prematurely for some reason
-                            bot.reply(message, 'OK, no hay problema');
-                        }
-                    });
-                }
-            });
+            console.log('cleverbot err: ' + err);
         }
     });
-});
+})
 
-
-controller.hears(['shutdown'], 'direct_message,direct_mention,mention', function(bot, message) {
-
-    bot.startConversation(message, function(err, convo) {
-
-        convo.ask('Are you sure you want me to shutdown?', [
-            {
-                pattern: bot.utterances.yes,
-                callback: function(response, convo) {
-                    convo.say('Bye!');
-                    convo.next();
-                    setTimeout(function() {
-                        process.exit();
-                    }, 3000);
-                }
-            },
-        {
-            pattern: bot.utterances.no,
-            default: true,
-            callback: function(response, convo) {
-                convo.say('*Phew!*');
-                convo.next();
-            }
-        }
-        ]);
-    });
-});
-
-
-controller.hears(['uptime', 'identify yourself', 'who are you', 'what is your name'],
-    'direct_message,direct_mention,mention', function(bot, message) {
-
-        var hostname = os.hostname();
-        var uptime = formatUptime(process.uptime());
-
-        bot.reply(message,
-            ':robot_face: I am a bot named <@' + bot.identity.name +
-             '>. I have been running for ' + uptime + ' on ' + hostname + '.');
-
-    });
 
 function formatUptime(uptime) {
     var unit = 'second';
