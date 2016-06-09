@@ -10,4 +10,4 @@ COPY slack_bot.js /usr/src/app/
 COPY package.json /usr/src/app/
 
 #set startup commands
-CMD ["node", "bot"]
+CMD ["node", "slack_bot"]
