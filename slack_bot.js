@@ -47,6 +47,9 @@ controller.hears(['cuenteme algo', 'cuenteme un chiste', 'cuente un chiste', 'es
   bot.reply(message, story);
 });
 
+controller.hears(['este es un trabajo para la doctora'], 'ambient', function(bot,message){
+  bot.reply(message, "http://67.media.tumblr.com/6339f52d38760a700ca9adc48eab43ea/tumblr_o17hspcySq1rzlfxxo1_1280.gif");
+});
 
 controller.hears(['insulte'], 'direct_message,direct_mention,mention', function(bot,message){
   var insults = ["http://i.imgur.com/9IZACjN.jpg",
