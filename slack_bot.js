@@ -118,7 +118,7 @@ controller.hears(['insulte'], 'direct_message,direct_mention,mention', function(
     bot.reply(message, insult);
 });
 
-controller.hears(['picnic'], 'ambient', function(bot, message){
+controller.hears(['orellabac'], 'ambient', function(bot, message){
   var userID = message.user;
   var user = "<@"+userID+">";
   var reply = user + " hagame mention, no hable a mis espaldas :rage:";
@@ -149,6 +149,16 @@ controller.on("bot_channel_join", function(bot, message){
 controller.on("bot_group_join", function(bot, message){
   bot.reply(message,"Ahora si empieza lo bueno :smirk:");
 });
+
+controller.on("user_channel_join", function(bot, message) {
+  var intro = "Bienvenido al canal <@"+message.user+">";
+  bot.reply(message, intro);
+})
+
+controller.on("user_group_join", function(bot, message) {
+  var intro = "Bienvenido al grupo <@"+message.user+">";
+  bot.reply(message, intro);
+})
 
 controller.hears(['jale a comer', 'almuerzo', 'comida', 'comen'], 'ambient', function(bot, message){
   var userID = message.user;
