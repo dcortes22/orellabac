@@ -1,4 +1,4 @@
-# PicNic
+# Orellabac
 A basic bot for slack base on botkit
 
 # Autor
