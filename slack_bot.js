@@ -118,14 +118,6 @@ controller.hears(['no entiendo', 'no entendi', 'expliqueme', 'me explica'], 'amb
   bot.reply(message, "https://s-media-cache-ak0.pinimg.com/736x/2e/29/87/2e298711c7fec1d77637a982235c9910.jpg");
 });
 
-controller.hears(['julio', 'orlando', 'orly'], 'direct_message,direct_mention,mention,ambient', function(bot, message){
-  var userID = message.user;
-  var user = "<@"+userID+">";
-  var reply = user + " eso que dijo merece esto";
-  bot.reply(message, reply);
-  bot.reply(message, 'http://gph.is/1HlCG6v');
-});
-
 controller.hears(['me llamo (.*)', 'mi nombre es (.*)', 'soy (.*)'], 'direct_message,direct_mention,mention', function(bot, message) {
     var name = message.match[1];
     bot.reply(message, 'Quiere un trofeo o fiesta en hooters? ' + "<@"+message.user+">");
