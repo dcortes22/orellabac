@@ -3,17 +3,6 @@ if (!process.env.SLACK_TOKEN) {
     process.exit(1);
 }
 
-var cleverbot = require("cleverbot.io"),
-cleverbot = new cleverbot('i8TjAndLnTqKNxFv', 'nfwwaciaKYccoLj5KLuOGhLoddV8O6zo');
-cleverbot.setNick("Bob");
-cleverbot.create(function (err, session) {
-    if (err) {
-        console.log('cleverbot create fail.');
-    } else {
-        console.log('cleverbot create success.');
-    }
-});
-
 var Botkit = require('./lib/Botkit.js');
 var os = require('os');
 
@@ -159,26 +148,6 @@ controller.on("user_group_join", function(bot, message) {
   var intro = "Bienvenido al grupo <@"+message.user+">";
   bot.reply(message, intro);
 })
-
-controller.hears(['jale a comer', 'almuerzo', 'comida', 'comen'], 'ambient', function(bot, message){
-  var userID = message.user;
-  var user = "<@"+userID+">";
-  bot.reply(message, "Yo me encargo " + user);
-  bot.say({text: "@channel: hey todos dice " + user + " que tiene hambre a donde vamos",
-           channel:"C11429SQ6"});
-});
-
-controller.hears('','direct_message,direct_mention,mention',function(bot,message) {
-    var msg = message.text;
-    cleverbot.ask(msg, function (err, response) {
-        if (!err) {
-            bot.reply(message, response);
-        } else {
-            console.log('cleverbot err: ' + err);
-        }
-    });
-})
-
 
 function formatUptime(uptime) {
     var unit = 'second';
